@@ -1,5 +1,7 @@
 import Projects from '../components/projects/Projects';
-import Home from '../components/Home';
+import Members from '../components/members/Members';
+import Notices from '../components/notices/Notices';
+import Home from '../components/home/Home';
 
 export const routes = [
     {
@@ -9,5 +11,14 @@ export const routes = [
     {
         path : '/projects',
         component: Projects
-    }
+    },
+    {
+        path : '/members',
+        component: Members
+    },
+    {
+        path : '/notices',
+        component: Notices
+    },
+
 ]
