@@ -7,7 +7,7 @@ Vue.use(Vuex);
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
-import { routes} from './routes/index'; 
+import { routes} from './routes/index';
 const router = new VueRouter({
   routes,
   mode: 'history'

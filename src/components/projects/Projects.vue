@@ -1,6 +1,7 @@
 <template>
     <div>
         <navbar></navbar>
+        <project-details></project-details>
         <ul>
             <li v-for="project in projectList" :key="project.id">{{project.title}}</li>
         </ul>
@@ -8,6 +9,7 @@
 </template>
 <script>
 import Header from "../common/Header";
+import Projectdetails from "./Projectdetails";
 import axios from 'axios';
 export default {
     data() {
@@ -20,6 +22,7 @@ export default {
     },
     components: {
         'navbar': Header,
+        'project-details' : Projectdetails
     },
     methods: {
         fetchProjects() {

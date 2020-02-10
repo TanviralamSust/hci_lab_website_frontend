@@ -2,11 +2,27 @@
   <div>
     <navbar></navbar>
     <home-slider></home-slider>
+
+    <div class="homeBody">
+      <div>
+        <div><about></about></div>
+        <div style="margin-top: 30px"><contact></contact></div>
+      </div>
+
+      <div><notice-board></notice-board></div>
+    </div>
+
   </div>
 </template>
 <script>
+
 import HomeSlider from "./HomeSlider";
 import Header from "../common/Header";
+import NoticeBoard from "./NoticeBoard";
+import About from "./About";
+import Details from "./Details";
+import Contact from "./Contact";
+
 export default {
   methods: {
     viewProjects() {
@@ -15,7 +31,11 @@ export default {
   },
   components: {
     "home-slider": HomeSlider,
-    navbar: Header
+    navbar: Header,
+    "notice-board": NoticeBoard,
+    about: About,
+    details_div: Details,
+    contact: Contact,
   }
 };
 </script>
