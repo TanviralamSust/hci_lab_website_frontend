@@ -22,19 +22,37 @@ form.contactForm {
   width: 1000px;
   padding:50px;
 }
+
+div.projectsDiv {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 20px;
+}
+
 /*div.aboutContactDiv {*/
 /*  display: flex;*/
 /*  align-items: ;*/
 /*}*/
 
 p.aboutText {
-    margin-top: 40px;
     font-size: large;
     text-align: left;
+}
+p.formDetails {
+  margin-top: 10px;
+  color: aliceblue;
+  font-size: large;
 }
 
 b.aboutHeader {
   font-style: oblique;
+  margin-top: 10px;
+  font-size: xx-large;
+}
+b.formHeader {
+  font-style: oblique;
+  color: aliceblue;
   margin-top: 10px;
   font-size: xx-large;
 }
@@ -47,6 +65,14 @@ div.homeBody {
     justify-content: space-around;
 }
 
+div.memberDiv {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: flex-start;
+
+}
+
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -55,7 +81,11 @@ div.homeBody {
     color: #2c3e50;
     margin-top: 60px;
 }
-
+#primaryButton {
+  margin: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 #nav {
     padding: 30px;
 }
@@ -63,4 +93,15 @@ div.homeBody {
 #nav a {
     font-weight: bold;
     color: #2c3e50;
+}
+
+#formDiv {
+  padding: 20px;
+  margin-top: 40px;
+  border: 2px solid #26c6da;
+}
+#formHeadDiv {
+  padding: 20px;
+  background: #26c6da;
+  margin-top: 40px;
 }

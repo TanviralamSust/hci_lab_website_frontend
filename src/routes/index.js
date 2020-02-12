@@ -3,6 +3,7 @@ import CreateProject from '../components/projects/CreateProject';
 import Members from '../components/members/Members';
 import Notices from '../components/notices/Notices';
 import Home from '../components/home/Home';
+import CreateMember from '../components/members/CreateMember'
 
 export const routes = [
     {
@@ -20,6 +21,10 @@ export const routes = [
     {
         path : '/members',
         component: Members
+    },
+    {
+        path : '/members/addMember',
+        component: CreateMember
     },
     {
         path : '/notices',

@@ -1,6 +1,22 @@
 <template>
   <div>
     <navbar></navbar>
+    <v-card
+      id="formHeadDiv"
+      class="mx-auto"
+      max-width="700">
+      <b class="formHeader">
+        Add Project
+      </b>
+      <p class="formDetails">
+        Please give the below details to add your project
+      </p>
+    </v-card>
+    <v-card id="formDiv"
+      class="mx-auto"
+      max-width="700"
+      style="padding: 20px"
+    >
     <form>
       <v-text-field
         v-model="project.title"
@@ -17,14 +33,15 @@
         label="Duration"
         required
       ></v-text-field>
-      <v-file-input 
+      <v-file-input
         v-model="project.projectImage"
-        accept="image/*" 
+        accept="image/*"
         label="Image">
       </v-file-input>
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <!-- <v-btn @click="clear">clear</v-btn> -->
     </form>
+    </v-card>
   </div>
 </template>
 <script>
@@ -53,11 +70,11 @@ export default {
         bodyFormData.set('title', this.project.title);
         bodyFormData.set('description', this.project.description);
         bodyFormData.set('duration', this.project.duration);
-        bodyFormData.append('projectImage', this.project.projectImage)
-    
+        bodyFormData.append('projectImage', this.project.projectImage);
+
         let config = {headers: {
-                'Content-Type': 'multipart/form-data', 
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98' 
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98'
             }
         };
         axios.post( 'http://localhost:9001/projects',
