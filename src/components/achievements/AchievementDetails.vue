@@ -10,7 +10,6 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="headline">{{item.title}}</v-list-item-title>
-            <v-list-item-subtitle>by {{item.coordinators}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-img
@@ -44,7 +43,7 @@
 
             <v-card-text>
               {{item.description}}
-               </v-card-text>
+            </v-card-text>
           </div>
         </v-expand-transition>
       </v-card>
@@ -54,19 +53,20 @@
 </template>
 
 <script>
-    export default {
-      computed : {
-        items() {
-          return this.$store.getters.getProjects
-        }
-      },
+  export default {
+    computed : {
+      items() {
+        return this.$store.getters.getAchievements
+      }
+    },
 
-      data: () => ({
-        show: false,
-      }),
-    }
+    data: () => ({
+      show: false,
+    }),
+  }
 </script>
 
 <style scoped>
 
 </style>
+

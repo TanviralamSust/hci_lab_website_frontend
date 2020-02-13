@@ -5,18 +5,26 @@
         class="mx-auto"
         max-width="700"
         style="padding: 20px"
-
+        id="cardDiv"
       >
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title class="headline">{{item.title}}</v-list-item-title>
-            <v-list-item-subtitle>by {{item.coordinators}}</v-list-item-subtitle>
+            <v-list-item-subtitle>by {{item.organiser}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-          height="300px"
-        ></v-img>
+
+        <div class="noticeDiv" style="margin-top: 10px">
+
+          <p class="aboutText">Organiser: {{item.organization}}</p>
+
+          <p class="aboutText">Deadline: {{item.deadline}}</p>
+
+          <p class="aboutText">Description: </p>
+
+          <p class="aboutText">{{item.description}}</p>
+
+        </div>
 
         <v-card-actions>
           <v-btn text>Delete</v-btn>
@@ -28,42 +36,29 @@
             Update
           </v-btn>
 
-          <v-spacer></v-spacer>
-
           <v-btn
-            icon
-            @click="show = !show"
+            color="blue"
+            text
           >
-            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+            Download Notice
           </v-btn>
+
+
         </v-card-actions>
 
-        <v-expand-transition>
-          <div v-show="show">
-            <v-divider></v-divider>
-
-            <v-card-text>
-              {{item.description}}
-               </v-card-text>
-          </div>
-        </v-expand-transition>
       </v-card>
     </div>
   </div>
-
 </template>
 
 <script>
     export default {
-      computed : {
-        items() {
-          return this.$store.getters.getProjects
-        }
-      },
+        computed : {
+          items() {
+            return this.$store.getters.getNotices
+          }
+        },
 
-      data: () => ({
-        show: false,
-      }),
     }
 </script>
 

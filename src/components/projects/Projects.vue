@@ -73,7 +73,7 @@ export default {
           })
         },
         fetchDummyProjects() {
-            this.$store.commit('addProject',this.projectList);
+            this.$store.commit('addProjects',this.projectList);
         }
     }
 }

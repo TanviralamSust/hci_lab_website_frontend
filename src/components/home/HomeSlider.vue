@@ -1,17 +1,20 @@
 <template>
-  <v-carousel cycle height="800" interval="100000" show-arrows-on-hover>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-      reverse-transition="fade-transition"
-      transition="fade-transition"
-    >
-      <v-row class="fill-height" justify="center">
-        <b class="primaryText">{{ item.num }} decribe the activity happened last week</b>
-      </v-row>
-    </v-carousel-item>
-  </v-carousel>
+  <div style="margin: 20px">
+    <v-carousel cycle height="800" interval="100000" show-arrows-on-hover>
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
+      >
+        <v-row class="fill-height" justify="center">
+          <b class="primaryText">{{ item.num }} decribe the activity happened last week</b>
+        </v-row>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
+
 </template>
 
 <script>
@@ -20,19 +23,19 @@ export default {
     return {
       items: [
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+          src: "http://hd.wallpaperswide.com/thumbs/the_most_beautiful_road_in_the_world_2-t2.jpg",
           num: "First"
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+          src: "http://hd.wallpaperswide.com/thumbs/road_nature_love-t2.jpg",
           num: "Second"
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+          src: "http://hd.wallpaperswide.com/thumbs/moraine_lake_canadian_rockies-t2.jpg",
           num: "Second"
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          src: "http://hd.wallpaperswide.com/thumbs/chamarel_waterfalls_mauritius-t2.jpg",
           num: "Second"
         }
       ],

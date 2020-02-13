@@ -4,6 +4,9 @@ import Members from '../components/members/Members';
 import Notices from '../components/notices/Notices';
 import Home from '../components/home/Home';
 import CreateMember from '../components/members/CreateMember'
+import CreateNotice from "../components/notices/CreateNotice";
+import Achievements from "../components/achievements/Achievements";
+import CreateAchievement from "../components/achievements/CreateAchievement";
 
 export const routes = [
     {
@@ -29,6 +32,18 @@ export const routes = [
     {
         path : '/notices',
         component: Notices
+    },
+    {
+        path : '/notices/addNotice',
+        component: CreateNotice
+    },
+    {
+      path : '/achievements',
+      component: Achievements
+    },
+    {
+      path : '/achievements/addAchievement',
+      component: CreateAchievement
     },
 
 ]

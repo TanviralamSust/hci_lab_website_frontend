@@ -72,6 +72,13 @@ div.memberDiv {
   align-items: flex-start;
 
 }
+div.noticeDiv {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: flex-start;
+
+}
 
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -79,7 +86,6 @@ div.memberDiv {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
 }
 #primaryButton {
   margin: 40px;
@@ -95,6 +101,14 @@ div.memberDiv {
     color: #2c3e50;
 }
 
+#cardDiv {
+  border: 1px solid #26c6da;
+}
+
+#headerTitle {
+  font-style: italic;
+}
+
 #formDiv {
   padding: 20px;
   margin-top: 40px;
@@ -104,4 +118,7 @@ div.memberDiv {
   padding: 20px;
   background: #26c6da;
   margin-top: 40px;
+}
+#headerDiv {
+  height: 170px;
 }

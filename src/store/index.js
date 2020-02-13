@@ -3,39 +3,49 @@ export const storage = {
         notices: [],
         projects: [],
         members:[],
+        achievements:[],
     },
     getters : {
-        getNotices(state) {
-            return state.notices;
-        },
         getProjects(state) {
             return state.projects;
         },
         getMembers(state) {
           return state.members;
-        }
+        },
+        getAchievements(state) {
+          return state.achievements;
+        },
+        getNotices(state) {
+          return state.notices;
+        },
     },
     mutations: {
-        addNotice(state, payload) {
-            state.notices.push(payload);
+        addNotices(state, payload) {
+            state.notices=payload;
         },
-        addProject(state, payload) {
+        addProjects(state, payload) {
             state.projects= payload;
         },
         addMembers(state, payload) {
           state.members = payload;
+        },
+        addAchievements(state, payload) {
+          state.achievements = payload;
         }
     },
     actions: {
-        addProject(context, payload) {
-            context.commit('addProject', payload);
+        addProjects(context, payload) {
+            context.commit('addProjects', payload);
         },
-        addNotice(context, payload) {
-            context.commit('addNotice', payload);
+        addNotices(context, payload) {
+            context.commit('addNotices', payload);
         },
         addMembers(context, payload) {
           context.commit('addMembers', payload);
+        },
+        addAchievements(context, payload) {
+          context.commit('addAchievements', payload);
         }
     }
 
-}
+};
