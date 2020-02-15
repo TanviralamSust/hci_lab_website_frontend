@@ -7,6 +7,24 @@ import CreateMember from '../components/members/CreateMember'
 import CreateNotice from "../components/notices/CreateNotice";
 import Achievements from "../components/achievements/Achievements";
 import CreateAchievement from "../components/achievements/CreateAchievement";
+import Auth from "../components/auth/Login";
+import store from "../store"
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next();
+        return;
+    }
+    next("/");
+};
+  
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next();
+        return;
+    }
+    next("/login");
+};
 
 export const routes = [
     {
@@ -19,7 +37,8 @@ export const routes = [
     },
     {
         path : '/projects/addProject',
-        component: CreateProject
+        component: CreateProject,
+        beforeEnter: ifAuthenticated
     },
     {
         path : '/members',
@@ -27,7 +46,8 @@ export const routes = [
     },
     {
         path : '/members/addMember',
-        component: CreateMember
+        component: CreateMember,
+        beforeEnter: ifAuthenticated
     },
     {
         path : '/notices',
@@ -35,15 +55,21 @@ export const routes = [
     },
     {
         path : '/notices/addNotice',
-        component: CreateNotice
+        component: CreateNotice,
+        beforeEnter: ifAuthenticated
     },
     {
-      path : '/achievements',
-      component: Achievements
+        path : '/achievements',
+        component: Achievements
     },
     {
-      path : '/achievements/addAchievement',
-      component: CreateAchievement
+        path : '/achievements/addAchievement',
+        component: CreateAchievement,
+        beforeEnter: ifAuthenticated
     },
-
+    {
+        path: '/login',
+        component: Auth,
+        beforeEnter: ifNotAuthenticated
+    }
 ]

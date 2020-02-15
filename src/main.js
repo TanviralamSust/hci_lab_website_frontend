@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import Vuex from 'vuex';
-Vue.use(Vuex);
-
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
@@ -13,8 +10,7 @@ const router = new VueRouter({
   mode: 'history'
 })
 
-import {storage} from './store/index';
-const store = new Vuex.Store(storage);
+import store from './store';
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'

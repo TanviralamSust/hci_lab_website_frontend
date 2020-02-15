@@ -4,7 +4,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
 
-        <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path">
+        <v-btn flat v-for="item in menuItems" :key="item.title" :to="item.path" @click="btnClick(item.title)">
           <!-- <v-icon left dark>{{ item.icon }}</v-icon> -->
           {{ item.title }}
         </v-btn>
@@ -37,6 +37,9 @@ export default {
         {
           title: "Achievements",
           path: "/achievements"
+        },
+        {
+          title: this.$store.getters.isAuthenticated ? "Log out" : "Log In"
         }
       ]
     };
@@ -46,6 +49,13 @@ export default {
       this.$router.push({
         path:'/'
       })
+    },
+    btnClick(action) {
+      if (action === 'Log In') this.$router.push('/login');
+      else if (action === 'Log out') {
+        this.$store.dispatch('logoutUser');
+        location.reload();
+      }
     }
   }
 };
