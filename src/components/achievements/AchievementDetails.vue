@@ -13,7 +13,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          :src="'http://localhost:9001/'+item.image"
           height="300px"
         ></v-img>
 

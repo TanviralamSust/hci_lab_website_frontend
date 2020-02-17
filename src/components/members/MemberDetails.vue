@@ -12,7 +12,7 @@
                 <v-img
                   height="200"
                   width="200"
-                  src="https://cdn.vuetifyjs.com/images/cards/store.jpg"
+                  :src="'http://localhost:9001/' + item.image"
                 ></v-img>
                 <div style="margin-top: 10px">
                   <v-btn text>Delete</v-btn>

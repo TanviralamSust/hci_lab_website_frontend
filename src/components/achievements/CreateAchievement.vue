@@ -52,37 +52,17 @@
         },
       };
     },
-    mounted() {
-      this.fetchAchievements();
-    },
     components: {
       navbar: Header
     },
     methods: {
       submit() {
-        let bodyFormData = new FormData();
-        bodyFormData.set('title', this.achievement.title);
-        bodyFormData.set('description', this.achievement.description);
-        bodyFormData.append('achievementImage', this.achievement.projectImage);
-        console.log(JSON.stringify(this.achievement));
-
-        let config = {headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98'
-          }
-        };
-        axios.post( 'http://localhost:9001/achievements',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log(response);
-          })
-          .catch(function (response) {
-            //handle error
-            console.log(response);
-          });
+        this.$store.dispatch('createAchievement', this.achievement).then((response)=>{
+          console.log(response);
+          this.$router.push('/members');
+        }).catch((err)=>{
+          console.log(err);
+        });
       }
     }
   };

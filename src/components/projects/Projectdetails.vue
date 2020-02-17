@@ -14,7 +14,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          :src="'http://localhost:9001/' + item.image"
           height="300px"
         ></v-img>
 
@@ -57,12 +57,18 @@
     export default {
       computed : {
         items() {
+          let projects = this.$store.getters.getProjects;
+          projects.forEach(project=> {
+            project.imageUrl = 'http://localhost:9001/' + project.projectImage;
+          });
+          console.log(projects)
           return this.$store.getters.getProjects
         }
       },
 
       data: () => ({
         show: false,
+        url: 'http://localhost:9001/uploads/1581866154570-im.jpg'
       }),
     }
 </script>
