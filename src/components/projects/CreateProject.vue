@@ -63,12 +63,8 @@ export default {
   },
   methods: {
       submit() {
-        this.$store.dispatch('createProject',this.project).then((response)=>{
-          console.log(response);
-          this.$router.push('/projects');
-        }).catch((err)=>{
-          console.log(err);
-        });
+        let response = this.$store.dispatch('createProject',this.project);
+
       }
   }
 };

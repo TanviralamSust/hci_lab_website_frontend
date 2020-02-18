@@ -85,7 +85,9 @@
           console.log(response);
           this.$router.push('/members');
         }).catch((err)=>{
-          console.log(err);
+          // this.$store.dispatch('logoutUser');
+          // location.reload();
+          console.log(err+'-------');
         });
       }
     }

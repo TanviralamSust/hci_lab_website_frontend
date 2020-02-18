@@ -118,30 +118,63 @@ const storage = {
 
           let config = {headers: {
               'Content-Type': 'multipart/form-data',
-              'Authorization': 'Bearer '+this.state.token,
+              'Authorization': 'Bearer ssss'+this.state.token,
             }
           };
-          return new Promise((resolve, reject) => {
+
+
+            let self=this;
             axios.post( 'http://localhost:9001/projects',
               bodyFormData,
               config
             )
               .then(function (response) {
                 //handle success
-                console.log(response.data);
+                console.log('1 -- : '+response.data);
                 context.commit('createProject', response.data);
-                resolve(response);
+                return Promise.resolve(response);
               })
               .catch(function (err) {
                 //handle error
-                console.log(JSON.stringify(err.response));
                 if(err.response.status === 401) {
-                      console.log('handle refresh token error');
+                    let body = {
+                      refreshToken:self.state.refreshToken,
+                    };
+                  axios.post('http://localhost:9001/token',body)
+                    .then(response=>{
+                      if(response.data.success===true){
+                        console.log('2 -- : ');
+                        localStorage.setItem("user-token", response.data.token);
+                        let configRef = {
+                          headers: {
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': 'Bearer ' + response.data.token,
+                          }
+                        };
+                        axios.post( 'http://localhost:9001/projects',
+                            bodyFormData,
+                            configRef
+                        ).then(response=> {
+                          console.log('3 -- : ');
+                            console.log(JSON.stringify(response.data)+'under refresh-----');
+                              context.commit('createProject', response.data);
+                          return Promise.resolve(response);
+                          }).catch(err=>{
+                          console.log('4 -- : ');
+                            console.log(JSON.stringify(err)+'-----ref');
+                          })
+
+                      } else {
+                        console.log(5);
+                         return(err)
+                      }
+                    }).catch(err=>{
+                    console.log(6);
+                  });
                 }
-                reject(err.response);
+                return Promise.reject(err.response);
               });
-          });
-        },
+},
         getProjects(context) {
           axios.get('http://localhost:9001/projects').then(response => {
             console.log(response.data);
@@ -225,6 +258,7 @@ const storage = {
               //handle error
               console.log(JSON.stringify(err.response));
               if(err.response.status === 401) {
+
                 console.log('handle refresh token error');
               }
               reject(err.response);
