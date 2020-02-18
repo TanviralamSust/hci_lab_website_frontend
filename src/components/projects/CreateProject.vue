@@ -63,7 +63,13 @@ export default {
   },
   methods: {
       submit() {
-        let response = this.$store.dispatch('createProject',this.project);
+        let response = this.$store.dispatch('createProject',this.project).then(response=> {
+          console.log('from create project comp' + response);
+          this.$router.push('/projects');
+        })
+        .catch(error=> {
+          console.log('from create project comp' , error, error.data);
+        });
 
       }
   }
