@@ -11,7 +11,7 @@
       <v-textarea
         name="input-7-1"
         label="Message"
-        v-model="user.message"
+        v-model="user.text"
         auto-grow
       ></v-textarea>
       <v-btn class="mr-4" @click="submit">submit</v-btn>
@@ -27,12 +27,17 @@
       return {
         user: {
           email: "",
-          message:"",},
+          text:"",},
       }
     },
     methods: {
       submit() {
-        console.log(this.user.email+this.user.message);
+        this.$store.dispatch('sendContact', this.user).then(response=>{
+          alert('Your Message sent successfully, Thank you for your response!');
+          console.log(response+'----con');
+        }).catch(err=>{
+          console.log(err+'----erCon');
+        });
       }
     }
   }

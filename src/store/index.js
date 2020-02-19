@@ -75,6 +75,9 @@ const storage = {
     },
     fetchAchievements(state, payload) {
       state.achievements = payload;
+    },
+    setToken(state, payload) {
+      state.token = payload;
     }
   },
   actions: {
@@ -112,90 +115,118 @@ const storage = {
     createProject(context, payload) {
       let bodyFormData = new FormData();
       bodyFormData.set('title', payload.title);
+      bodyFormData.set('coordinators', payload.coordinators);
       bodyFormData.set('description', payload.description);
       bodyFormData.set('duration', payload.duration);
       bodyFormData.append('projectImage', payload.projectImage);
 
+      console.log(this.state.token+" ==============>token");
+
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer ss' + this.state.token,
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
       let self = this;
-
-      return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9001/projects',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log('1 -- : ' + response.data);
+        // if(payload.count<5) {
+          return  axios.post('http://localhost:9001/projects', bodyFormData, config).then(response => {
             context.commit('createProject', response.data);
-            resolve(response);
+            return response;
           })
-          .catch(function (err) {
-            //handle error
-            new Promise((resolve, reject) => {
-              if (err.response.status === 401) {
-                let body = {
-                  refreshToken: self.state.refreshToken,
-                };
-                axios.post('http://localhost:9001/token', body)
-                  .then(response => {
-                    if (response.data.success === true) {
-                      console.log('2 -- : ');
-                      localStorage.setItem("user-token", response.data.token);
-                      let configRef = {
-                        headers: {
-                          'Content-Type': 'multipart/form-data',
-                          'Authorization': 'Bearer ' + response.data.token,
-                        }
-                      };
-                      // resolve(response);
-                      new Promise((resolve, reject) => {
-                        axios.post('http://localhost:9001/projects',
-                          bodyFormData,
-                          configRef
-                        ).then(response => {
-                          console.log('3 -- : ');
-                          console.log(JSON.stringify(response.data) + 'under refresh-----');
-                          context.commit('createProject', response.data);
-                          resolve(response);
-                        }).catch(err => {
-                          console.log('4 -- : ');
-                          console.log(JSON.stringify(err) + '-----ref');
-                          reject(err);
-                        })
-                      }).then(response=> {
-                        resolve(response);
-                      }).catch(err=>{
-                        reject(err);
-                      })
-
-                    } else {
-                      console.log(5);
-                      context.commit('logoutUser');
-                      reject(response.data)
-                      // return Promise.resolve(response.data);
-                    }
-                  }).catch(err => {
-                    console.log(6);
-                    reject(err)
-                  });
-              } else {
-                reject(err.response);
-              }
-            }).then(response => {
-              resolve(response);
-            }).catch(err => {
-              reject(err);
-            })
-          });
-      })
+        // }else {
+        //   console.log(payload.count+" :---------");
+        // }
 
     },
+    sendRefreshToken(context) {
+      return new Promise((resolve, reject )=>{
+        let body = {
+              refreshToken: this.state.refreshToken,
+            };
+        axios.post('http://localhost:9001/token', body).then(response =>{
+          resolve(response);
+        }).catch(err=>{
+          reject(err);
+        })
+      })
+    },
+    setToken(context, payload) {
+      context.commit('setToken',payload);
+    },
+
+    //   return new Promise((resolve, reject) => {
+    //     axios.post('http://localhost:9001/projects',
+    //       bodyFormData,
+    //       config
+    //     )
+    //       .then(function (response) {
+    //         //handle success
+    //         console.log('1 -- : ' + response.data);
+    //         context.commit('createProject', response.data);
+    //         resolve(response);
+    //       })
+    //       .catch(function (err) {
+    //         //handle error
+    //         new Promise((resolve, reject) => {
+    //           if (err.response.status === 401) {
+    //             let body = {
+    //               refreshToken: self.state.refreshToken,
+    //             };
+    //             axios.post('http://localhost:9001/token', body)
+    //               .then(response => {
+    //                 if (response.data.success === true) {
+    //                   console.log('2 -- : ');
+    //                   localStorage.setItem("user-token", response.data.token);
+    //                   let configRef = {
+    //                     headers: {
+    //                       'Content-Type': 'multipart/form-data',
+    //                       'Authorization': 'Bearer ' + response.data.token,
+    //                     }
+    //                   };
+    //                   // resolve(response);
+    //                   new Promise((resolve, reject) => {
+    //                     axios.post('http://localhost:9001/projects',
+    //                       bodyFormData,
+    //                       configRef
+    //                     ).then(response => {
+    //                       console.log('3 -- : ');
+    //                       console.log(JSON.stringify(response.data) + 'under refresh-----');
+    //                       context.commit('createProject', response.data);
+    //                       resolve(response);
+    //                     }).catch(err => {
+    //                       console.log('4 -- : ');
+    //                       console.log(JSON.stringify(err) + '-----ref');
+    //                       reject(err);
+    //                     })
+    //                   }).then(response=> {
+    //                     resolve(response);
+    //                   }).catch(err=>{
+    //                     reject(err);
+    //                   })
+    //
+    //                 } else {
+    //                   console.log(5);
+    //                   context.commit('logoutUser');
+    //                   reject(response.data)
+    //                   // return Promise.resolve(response.data);
+    //                 }
+    //               }).catch(err => {
+    //                 console.log(6);
+    //                 reject(err)
+    //               });
+    //           } else {
+    //             reject(err.response);
+    //           }
+    //         }).then(response => {
+    //           resolve(response);
+    //         }).catch(err => {
+    //           reject(err);
+    //         })
+    //       });
+    //   })
+    //
+    // },
     getProjects(context) {
       axios.get('http://localhost:9001/projects').then(response => {
         console.log(response.data);
@@ -296,6 +327,22 @@ const storage = {
         console.log(err)
 
       });
+    },
+    sendContact(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios.post('http://localhost:9001/contact',payload).then(response=>{
+          console.log(response.data);
+          resolve(response.data);
+        }).catch(err=>{
+            console.log(err);
+            reject(err);
+        })
+      })
+    },
+    onDeleteProject(context, paload) {
+      return new Promise((resolve, reject) => {
+        axios.delete()
+      })
     }
   }
 

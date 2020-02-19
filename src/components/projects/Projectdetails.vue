@@ -18,22 +18,18 @@
           height="300px"
         ></v-img>
 
-        <v-card-actions>
-          <v-btn text>Delete</v-btn>
+        <v-card-actions >
+            <v-btn v-if="$store.getters.isAuthenticated" text @click="onDelete()">Delete</v-btn>
 
-          <v-btn
-            color="purple"
-            text
-          >
-            Update
-          </v-btn>
+            <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate()">Update</v-btn>
 
           <v-spacer></v-spacer>
 
           <v-btn
             icon
             @click="show = !show"
-          >
+            color="blue"
+          >Details
             <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
           </v-btn>
         </v-card-actions>
@@ -65,7 +61,11 @@
           return this.$store.getters.getProjects
         }
       },
-
+      methods : {
+        onDelete() {
+          console.log('delete');
+        }
+      },
       data: () => ({
         show: false,
         url: 'http://localhost:9001/uploads/1581866154570-im.jpg'
