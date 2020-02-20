@@ -6,6 +6,8 @@
 
     <achievement-details></achievement-details>
 
+    <footer-bar></footer-bar>
+
   </div>
 </template>
 
@@ -13,6 +15,7 @@
   import Header from "../common/Header";
   import axios from 'axios';
   import AchievementDetails from "./AchievementDetails";
+  import Footer from "../common/Footer";
 
   export default {
     data() {
@@ -26,6 +29,7 @@
     components: {
       'achievement-details': AchievementDetails,
       'navbar': Header,
+      "footer-bar": Footer,
     },
     methods: {
       fetchAchievements() {

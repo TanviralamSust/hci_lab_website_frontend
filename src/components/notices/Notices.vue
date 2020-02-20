@@ -6,12 +6,15 @@
 
     <notice-details></notice-details>
 
+    <footer-bar></footer-bar>
+
   </div>
 </template>
 <script>
   import Header from "../common/Header";
   import NoticeDetails from "./NoticeDetails";
   import axios from 'axios';
+  import Footer from "../common/Footer";
   export default {
     data() {
       return {
@@ -59,7 +62,8 @@
     },
     components: {
       'navbar': Header,
-      'notice-details' : NoticeDetails
+      'notice-details' : NoticeDetails,
+      "footer-bar": Footer,
     },
     methods: {
       fetchNotices() {

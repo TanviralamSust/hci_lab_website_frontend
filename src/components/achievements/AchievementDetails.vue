@@ -65,8 +65,7 @@
       onDeleteAchievement(achievmentId) {
         this.$store.dispatch('onDeleteAchievement', achievmentId)
         .then(response =>{
-          console.log("good ---------------")
-          //location.reload();
+          location.reload();
         }).catch(err=>{
           console.log(JSON.stringify(err));
         })

@@ -6,6 +6,8 @@
 
         <project-details></project-details>
 
+        <footer-bar></footer-bar>
+
     </div>
 </template>
 <script>
@@ -13,6 +15,7 @@ import Header from "../common/Header";
 import Projectdetails from "./Projectdetails";
 import axios from 'axios';
 import {routes} from "../../routes";
+import Footer from "../common/Footer";
 export default {
     data() {
         return {
@@ -24,7 +27,8 @@ export default {
     },
     components: {
         'navbar': Header,
-        'project-details' : Projectdetails
+        'project-details' : Projectdetails,
+        "footer-bar": Footer,
     },
     methods: {
         fetchProjects() {

@@ -11,7 +11,7 @@
 
       <div><notice-board></notice-board></div>
     </div>
-
+    <footer-bar></footer-bar>
   </div>
 </template>
 <script>
@@ -22,6 +22,7 @@ import NoticeBoard from "./NoticeBoard";
 import About from "./About";
 import Details from "./Details";
 import Contact from "./Contact";
+import Footer from "../common/Footer";
 
 export default {
 
@@ -36,6 +37,7 @@ export default {
     about: About,
     details_div: Details,
     contact: Contact,
+    "footer-bar": Footer,
   },
   data() {
     return {
