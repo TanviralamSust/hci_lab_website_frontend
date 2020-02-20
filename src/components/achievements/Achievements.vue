@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
 
-    <v-btn id="primaryButton" color="primary" @click="addAchievement()">Create Achievement</v-btn>
+    <v-btn v-show="$store.getters.isAuthenticated" id="primaryButton" color="primary" @click="addAchievement()">Create Achievement</v-btn>
 
     <achievement-details></achievement-details>
 

@@ -15,9 +15,9 @@
                   :src="'http://localhost:9001/' + item.image"
                 ></v-img>
                 <div style="margin-top: 10px">
-                  <v-btn text>Delete</v-btn>
+                  <v-btn v-show="$store.getters.isAuthenticated" @click="onDeleteMember(item._id)" text>Delete</v-btn>
 
-                  <v-btn color="purple" text>
+                  <v-btn v-show="$store.getters.isAuthenticated" color="purple" text>
                     Update
                   </v-btn>
                 </div>
@@ -49,6 +49,15 @@
         return this.$store.getters.getMembers
       }
     },
+    methods: {
+      onDeleteMember(memberId) {
+        this.$store.dispatch('onDeleteMember', memberId).then(response=>{
+          location.reload();
+        }).catch(err => {
+          console.log(JSON.stringify(err));
+        })
+      }
+    }
   }
 </script>
 

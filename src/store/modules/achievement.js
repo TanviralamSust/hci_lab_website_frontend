@@ -10,53 +10,30 @@ const achievementModule = {
     },
   },
   mutations: {
-    addAchievements(state, payload) {
-      state.achievements = payload;
-    },
     createAchievement(state, payload) {
-      state.achievements = payload;
+      state.achievements.push(payload);
     },
     fetchAchievements(state, payload) {
       state.achievements = payload;
     },
   },
   actions: {
-    addAchievements(context, payload) {
-      context.commit('addAchievements', payload);
-    },
 
     createAchievement(context, payload) {
       let bodyFormData = new FormData();
       bodyFormData.set('title', payload.title);
       bodyFormData.set('description', payload.description);
-      bodyFormData.append('achievementImage', payload.achievementImage);
+      bodyFormData.append('achievmentImage', payload.achievementImage);
 
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer ' + this.state.token,
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9001/achievments',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log(response.data);
-            context.commit('createAchievement', response.data);
-            resolve(response);
-          })
-          .catch(function (err) {
-            //handle error
-            console.log(JSON.stringify(err.response));
-            if (err.response.status === 401) {
-
-              console.log('handle refresh token error');
-            }
-            reject(err.response);
-          });
+      return  axios.post('http://localhost:9001/achievments', bodyFormData, config).then(response => {
+        context.commit('createAchievement', response.data);
+        return response;
       });
     },
     fetchAchievements(context) {
@@ -67,6 +44,19 @@ const achievementModule = {
         console.log(err)
 
       });
+    },
+    onDeleteAchievement(context, payload) {
+      let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
+        }
+      };
+      return axios.delete('http://localhost:9001/achievments/'+payload, config)
+        .then(response=>{
+          return response;
+        }).catch(err=>{
+          return err;
+        })
     },
   }
 };

@@ -58,6 +58,7 @@ const authModule = {
           refreshToken: this.state.refreshToken,
         };
         axios.post('http://localhost:9001/token', body).then(response =>{
+          console.log(response+'---------------ref token');
           resolve(response);
         }).catch(err=>{
           reject(err);

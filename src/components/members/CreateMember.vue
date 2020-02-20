@@ -81,14 +81,36 @@
     },
     methods: {
       submit() {
-        this.$store.dispatch('createMember', this.member).then((response)=>{
-          console.log(response);
+        this.$store.dispatch('createMember', this.member).then((response)=> {
+          console.log('from create member comp' + response);
           this.$router.push('/members');
-        }).catch((err)=>{
-          // this.$store.dispatch('logoutUser');
-          // location.reload();
-          console.log(err+'-------');
-        });
+        })
+          .catch(error=> {
+            console.log('from create error'+ error.response);
+            if (error.response.status === 401) {
+              this.$store.dispatch('sendRefreshToken').then(response =>{
+                if (response.data.success === true) {
+                  this.$store.dispatch('setToken',response.data.token);
+                  //this.submit();
+                  this.$store.dispatch('createMember',this.member).then(response=> {
+                    console.log('With new refresh token  create member : ' + response);
+                    this.$router.push('/members');;
+                  }).catch(error=>{
+                    this.$router.push('/');
+                    console.log('req with new token and member not suceesful')
+                  });
+                  console.log(response.data.token+" : get success response token");
+                } else {
+                  this.$router.push('/');
+                }
+              }).catch(error=>{
+                this.$router.push('/');
+                console.log('refresh token other error' + error);
+              });
+            } else {
+              console.log('member other error' + error.response.data);
+            }
+          });
       }
     }
   };

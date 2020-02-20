@@ -26,7 +26,6 @@ const projectModule = {
       bodyFormData.set('duration', payload.duration);
       bodyFormData.append('projectImage', payload.projectImage);
 
-      console.log(this.state.token+" ==============>token");
 
       let config = {
         headers: {
@@ -39,7 +38,7 @@ const projectModule = {
       return  axios.post('http://localhost:9001/projects', bodyFormData, config).then(response => {
         context.commit('createProject', response.data);
         return response;
-      })
+      });
       // }else {
       //   console.log(payload.count+" :---------");
       // }
@@ -55,9 +54,17 @@ const projectModule = {
       });
     },
     onDeleteProject(context, paload) {
-      return new Promise((resolve, reject) => {
-        axios.delete()
-      })
+      let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
+        }
+      };
+        return axios.delete('http://localhost:9001/projects/'+paload, config)
+          .then(response=>{
+            return response;
+          }).catch(err=>{
+            return err;
+        })
     },
   }
 };

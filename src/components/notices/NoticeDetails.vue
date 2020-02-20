@@ -27,9 +27,12 @@
         </div>
 
         <v-card-actions>
-          <v-btn text>Delete</v-btn>
+          <v-btn
+            v-show="$store.getters.isAuthenticated"
+            text>Delete</v-btn>
 
           <v-btn
+            v-show="$store.getters.isAuthenticated"
             color="purple"
             text
           >
@@ -37,6 +40,7 @@
           </v-btn>
 
           <v-btn
+
             color="blue"
             text
           >

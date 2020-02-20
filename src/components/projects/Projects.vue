@@ -2,7 +2,7 @@
     <div>
         <navbar></navbar>
 
-          <v-btn id="primaryButton" color="primary" @click="addProject()">Create Project</v-btn>
+          <v-btn v-show="$store.getters.isAuthenticated" id="primaryButton" color="primary" @click="addProject()">Create Project</v-btn>
 
         <project-details></project-details>
 

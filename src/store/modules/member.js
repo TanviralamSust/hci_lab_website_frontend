@@ -10,20 +10,14 @@ const memberModule = {
     },
   },
   mutations: {
-    addMembers(state, payload) {
-      state.members = payload;
-    },
     createMember(state, payload) {
-      console.log(payload);
+      state.members.push(payload);
     },
     fetchMembers(state, payload) {
       state.members = payload;
     },
   },
   actions: {
-    addMembers(context, payload) {
-      context.commit('addMembers', payload);
-    },
     createMember(context, payload) {
       let bodyFormData = new FormData();
       bodyFormData.set('firstName', payload.firstName);
@@ -34,31 +28,18 @@ const memberModule = {
       bodyFormData.set('currentWork', payload.currentWork);
       bodyFormData.append('memberImage', payload.memberImage);
 
+      console.log(this.state.token+" ==============2>token");
+
       let config = {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer ' + this.state.token,
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9001/members',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log(response.data);
-            context.commit('createMember', response.data);
-            resolve(response);
-          })
-          .catch(function (err) {
-            //handle error
-            console.log(JSON.stringify(err.response));
-            if (err.response.status === 401) {
-              console.log('handle refresh token error');
-            }
-            reject(err.response);
-          });
+
+      return  axios.post('http://localhost:9001/members', bodyFormData, config).then(response => {
+        context.commit('createMember', response.data);
+        return response;
       });
     },
     fetchMembers(context) {
@@ -67,8 +48,20 @@ const memberModule = {
         context.commit('fetchMembers', response.data);
       }).catch(function (err) {
         console.log(err)
-
       });
+    },
+    onDeleteMember(context, payload) {
+      let config = {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
+        }
+      };
+      return axios.delete('http://localhost:9001/members/'+payload, config)
+        .then(response=>{
+          return response;
+        }).catch(err=>{
+          return err;
+        })
     },
   }
 };

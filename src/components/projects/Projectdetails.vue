@@ -19,9 +19,9 @@
         ></v-img>
 
         <v-card-actions >
-            <v-btn v-if="$store.getters.isAuthenticated" text @click="onDelete()">Delete</v-btn>
+            <v-btn v-if="$store.getters.isAuthenticated" text @click="onDelete(item._id)">Delete</v-btn>
 
-            <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate()">Update</v-btn>
+            <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate(item._id)">Update</v-btn>
 
           <v-spacer></v-spacer>
 
@@ -62,8 +62,17 @@
         }
       },
       methods : {
-        onDelete() {
-          console.log('delete');
+        onDelete(projectId) {
+          console.log(projectId);
+          this.$store.dispatch('onDeleteProject', projectId).then(response=>{
+            console.log(JSON.stringify(response)+' : the response');
+            location.reload();
+          }).catch(err=>{
+            console.log(JSON.stringify(err));
+          });
+        },
+        onUpdate(projectId) {
+
         }
       },
       data: () => ({
