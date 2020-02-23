@@ -98,6 +98,7 @@
         },
         getLatestNotices() {
           var noticeList = this.$store.getters.getNotices;
+          console.log(JSON.stringify(noticeList)+'dscndjcnn=-----------');
           var latestNotices = noticeList.slice(0, 3);
           this.items=latestNotices;
           console.log(JSON.stringify(this.items));

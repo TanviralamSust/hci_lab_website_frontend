@@ -3,6 +3,8 @@
   >
 
     <form class="contactForm">
+      <b class="formHeader" style="color: #26c6da">Contact Us! </b>
+      <p>Please provide your message below.</p>
       <v-text-field
         v-model="user.email"
         label="Email"

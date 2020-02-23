@@ -23,12 +23,12 @@
           <p class="aboutText">Description: </p>
 
           <p class="aboutText">{{item.description}}</p>
-
         </div>
 
         <v-card-actions>
           <v-btn
             v-show="$store.getters.isAuthenticated"
+            @click="onDeleteNotice(item._id)"
             text>Delete</v-btn>
 
           <v-btn
@@ -40,10 +40,9 @@
           </v-btn>
 
           <v-btn
-
+            :href="'http://localhost:9001/'+item.noteFile"
             color="blue"
-            text
-          >
+            text>
             Download Notice
           </v-btn>
 
@@ -62,7 +61,17 @@
             return this.$store.getters.getNotices
           }
         },
-
+      methods: {
+        onDeleteNotice(noticeId) {
+          this.$store.dispatch('onDeleteNotices',noticeId)
+          .then(response =>{
+            location.reload();
+          }).catch(err=>{
+            JSON.stringify(err);
+          })
+        },
+    }
+    ,
     }
 </script>
 
