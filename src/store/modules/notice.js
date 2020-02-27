@@ -8,6 +8,9 @@ const noticeModule = {
     getNotices(state) {
       return state.notices;
     },
+    getLatestNotices(state) {
+      return  state.notices.slice(0, 3);
+    }
   },
   mutations: {
     createNotice(state,payload) {
@@ -45,7 +48,7 @@ const noticeModule = {
 
     fetchNotices(context) {
       axios.get('http://localhost:9001/notes').then(response => {
-        console.log(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data)+"  222222222222222");
         context.commit('fetchNotices', response.data);
       }).catch(function (err) {
         console.log(err);

@@ -59,34 +59,16 @@
 <script>
     export default {
 
-      mounted() {
-          this.getLatestNotices();
+      computed : {
+        items() {
+          return this.$store.getters.getLatestNotices
+        }
       },
       data: () => ({
             colors: [
               '#1F7087',
               '#952175',
               '#1F7087'
-            ],
-            items: [
-                {
-                    color: '#1F7087',
-                    src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-                    title: 'Supermodel',
-                    artist: 'Foster the People',
-                },
-                {
-                    color: '#952175',
-                    src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
-                    title: 'Halcyon Days',
-                    artist: 'Ellie Goulding',
-                },
-                {
-                    color: '#1F7087',
-                    src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
-                    title: 'Supermodel',
-                    artist: 'Foster the People',
-                }
             ],
         }),
       methods : {
@@ -96,13 +78,6 @@
             path:'/notices'
           })
         },
-        getLatestNotices() {
-          var noticeList = this.$store.getters.getNotices;
-          console.log(JSON.stringify(noticeList)+'dscndjcnn=-----------');
-          var latestNotices = noticeList.slice(0, 3);
-          this.items=latestNotices;
-          console.log(JSON.stringify(this.items));
-        }
       }
     }
 </script>

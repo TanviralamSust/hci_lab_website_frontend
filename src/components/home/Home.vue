@@ -26,8 +26,8 @@ import Footer from "../common/Footer";
 
 export default {
 
-  beforeMount() {
-    this.$store.dispatch('fetchNotices');
+  mounted() {
+    this.fetchNotices();
   },
 
   components: {
@@ -43,6 +43,9 @@ export default {
   methods: {
     viewProjects() {
       this.$router.push("/projects");
+    },
+    fetchNotices() {
+      this.$store.dispatch('fetchNotices');
     },
   },
 
