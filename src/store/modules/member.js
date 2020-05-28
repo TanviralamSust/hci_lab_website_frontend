@@ -3,6 +3,8 @@ import axios from "axios";
 const memberModule = {
   state: {
     members: [],
+    basicUrl:"https://hci-lab-sust-api.herokuapp.com/",
+    localUrl:"http://localhost:9001/"
   },
   getters: {
     getMembers(state) {
@@ -37,13 +39,13 @@ const memberModule = {
         }
       };
 
-      return  axios.post('http://localhost:9001/members', bodyFormData, config).then(response => {
+      return  axios.post(this.basicUrl+'members', bodyFormData, config).then(response => {
         context.commit('createMember', response.data);
         return response;
       });
     },
     fetchMembers(context) {
-      axios.get('http://localhost:9001/members').then(response => {
+      axios.get(this.basicUrl+'members').then(response => {
         console.log(response.data);
         context.commit('fetchMembers', response.data);
       }).catch(function (err) {
@@ -56,7 +58,7 @@ const memberModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete('http://localhost:9001/members/'+payload, config)
+      return axios.delete(this.basicUrl+'members/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{

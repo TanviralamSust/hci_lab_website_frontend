@@ -6,6 +6,8 @@ const authModule = {
     status: "",
     hasLoadedOnce: false,
     refreshToken: localStorage.getItem("refresh-token") || "",
+    basicUrl:"https://hci-lab-sust-api.herokuapp.com/",
+    localUrl:"http://localhost:9001/"
   },
   getters: {
     isAuthenticated(state) {
@@ -34,7 +36,7 @@ const authModule = {
   actions: {
     loginUser(context, payload) {
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9001/login', payload)
+        axios.post(this.basicUrl+'login', payload)
           .then(resp => {
             localStorage.setItem("user-token", resp.data.token);
             localStorage.setItem("refresh-token", resp.data.refreshToken);
@@ -57,7 +59,7 @@ const authModule = {
         let body = {
           refreshToken: this.state.refreshToken,
         };
-        axios.post('http://localhost:9001/token', body).then(response =>{
+        axios.post(this.basicUrl+'token', body).then(response =>{
           console.log(response+'---------------ref token');
           resolve(response);
         }).catch(err=>{

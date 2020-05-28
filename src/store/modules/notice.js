@@ -3,6 +3,8 @@ import axios from "axios";
 const noticeModule = {
   state: {
     notices: [],
+    basicUrl:"https://hci-lab-sust-api.herokuapp.com/",
+    localUrl:"http://localhost:9001/"
   },
   getters: {
     getNotices(state) {
@@ -47,7 +49,7 @@ const noticeModule = {
     },
 
     fetchNotices(context) {
-      axios.get('http://localhost:9001/notes').then(response => {
+      axios.get(this.basicUrl+'notes').then(response => {
         console.log(JSON.stringify(response.data)+"  222222222222222");
         context.commit('fetchNotices', response.data);
       }).catch(function (err) {
@@ -60,7 +62,7 @@ const noticeModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete('http://localhost:9001/notes/'+payload, config)
+      return axios.delete(this.basicUrl+'notes/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{
