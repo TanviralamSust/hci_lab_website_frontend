@@ -27,7 +27,7 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Developed By SUST HCI Lab Team</strong>
+        {{ new Date().getFullYear() }} — <strong>Developed By <a style="background: aliceblue" href="https://www.linkedin.com/in/tanvir-alam-nihal-927798146/">Tanvir Alam</a> Member SUST HCI Lab Team</strong>
       </v-card-text>
     </v-card>
   </v-footer>
