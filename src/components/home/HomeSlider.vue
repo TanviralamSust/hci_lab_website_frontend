@@ -23,19 +23,15 @@ export default {
     return {
       items: [
         {
-          src: "http://hd.wallpaperswide.com/thumbs/the_most_beautiful_road_in_the_world_2-t2.jpg",
+          src: "https://nlpsummerschool2017.files.wordpress.com/2017/07/cropped-dsc_3329_v2.jpg",
           num: "First"
         },
         {
-          src: "http://hd.wallpaperswide.com/thumbs/road_nature_love-t2.jpg",
+          src: "https://sustbanglaresearch.org/assets/img/ict%20building.jpeg",
           num: "Second"
         },
         {
-          src: "http://hd.wallpaperswide.com/thumbs/moraine_lake_canadian_rockies-t2.jpg",
-          num: "Second"
-        },
-        {
-          src: "http://hd.wallpaperswide.com/thumbs/chamarel_waterfalls_mauritius-t2.jpg",
+          src: "https://www.icbslp.org/assets/images/slide/2.jpg",
           num: "Second"
         }
       ],

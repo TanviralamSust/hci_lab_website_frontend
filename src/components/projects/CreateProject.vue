@@ -24,6 +24,11 @@
         required
       ></v-text-field>
       <v-text-field
+        v-model="project.coordinators"
+        label="Co-ordinators"
+        required
+      ></v-text-field>
+      <v-text-field
         v-model="project.description"
         label="Description"
         required
@@ -50,45 +55,55 @@ import axios from "axios";
 export default {
   data() {
     return {
+
       project: {
         title: "",
+        coordinators:"",
         description: "",
         duration: "",
-        projectImage: null
+        projectImage: null,
+        // count:0,
       },
     };
-  },
-  mounted() {
-    this.fetchProjects();
   },
   components: {
     navbar: Header
   },
   methods: {
       submit() {
-        let bodyFormData = new FormData();
-        bodyFormData.set('title', this.project.title);
-        bodyFormData.set('description', this.project.description);
-        bodyFormData.set('duration', this.project.duration);
-        bodyFormData.append('projectImage', this.project.projectImage);
-
-        let config = {headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98'
-            }
-        };
-        axios.post( 'http://localhost:9001/projects',
-            bodyFormData,
-            config
-        )
-        .then(function (response) {
-            //handle success
-            console.log(response);
+        // this.project.count = this.project.count+1;
+        // console.log(this.project.count+"=====")
+        this.$store.dispatch('createProject',this.project).then(response=> {
+          console.log('from create project comp' + response);
+          this.$router.push('/projects');
         })
-        .catch(function (response) {
-            //handle error
-            console.log(response);
+        .catch(error=> {
+          console.log('from create error'+ error.response);
+          if (error.response.status === 401) {
+              this.$store.dispatch('sendRefreshToken').then(response =>{
+                if (response.data.success === true) {
+                  this.$store.dispatch('setToken',response.data.token);
+                  //this.submit();
+                  this.$store.dispatch('createProject',this.project).then(response=> {
+                    console.log('With new refresh token  create project : ' + response);
+                    this.$router.push('/projects');
+                  }).catch(error=>{
+                    this.$router.push('/');
+                    console.log('req with new token and project not suceesful')
+                  });
+                  console.log(response.data.token+" : get success response token");
+                } else {
+                  this.$router.push('/');
+                }
+              }).catch(error=>{
+                this.$router.push('/');
+                console.log('refresh token other error' + error);
+              });
+          } else {
+            console.log('project other error' + error.response.data);
+          }
         });
+
       }
   }
 };

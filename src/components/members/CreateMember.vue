@@ -34,6 +34,11 @@
           required
         ></v-text-field>
         <v-text-field
+          v-model="member.email"
+          label="Email"
+          required
+        ></v-text-field>
+        <v-text-field
           v-model="member.designation"
           label="Designation"
           required
@@ -71,41 +76,40 @@
         },
       };
     },
-    mounted() {
-      this.fetchDummyMembers();
-    },
     components: {
       navbar: Header
     },
     methods: {
       submit() {
-        let bodyFormData = new FormData();
-
-        bodyFormData.set('firstName', this.member.firstName);
-        bodyFormData.set('lastName', this.member.lastName);
-        bodyFormData.set('email', this.member.email);
-        bodyFormData.set('researchInterest', this.member.researchInterest);
-        bodyFormData.set('designation', this.member.designation);
-        bodyFormData.set('currentWork', this.member.currentWork);
-        bodyFormData.append('memberImage', this.member.memberImage);
-        console.log(JSON.stringify(this.member));
-
-        let config = {headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98'
-          }
-        };
-        axios.post( 'http://localhost:9001/members',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log(response);
-          })
-          .catch(function (response) {
-            //handle error
-            console.log(response);
+        this.$store.dispatch('createMember', this.member).then((response)=> {
+          console.log('from create member comp' + response);
+          this.$router.push('/members');
+        })
+          .catch(error=> {
+            console.log('from create error'+ error.response);
+            if (error.response.status === 401) {
+              this.$store.dispatch('sendRefreshToken').then(response =>{
+                if (response.data.success === true) {
+                  this.$store.dispatch('setToken',response.data.token);
+                  //this.submit();
+                  this.$store.dispatch('createMember',this.member).then(response=> {
+                    console.log('With new refresh token  create member : ' + response);
+                    this.$router.push('/members');;
+                  }).catch(error=>{
+                    this.$router.push('/');
+                    console.log('req with new token and member not suceesful')
+                  });
+                  console.log(response.data.token+" : get success response token");
+                } else {
+                  this.$router.push('/');
+                }
+              }).catch(error=>{
+                this.$router.push('/');
+                console.log('refresh token other error' + error);
+              });
+            } else {
+              console.log('member other error' + error.response.data);
+            }
           });
       }
     }

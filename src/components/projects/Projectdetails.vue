@@ -14,26 +14,22 @@
           </v-list-item-content>
         </v-list-item>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          :src="'http://localhost:9001/' + item.image"
           height="300px"
         ></v-img>
 
-        <v-card-actions>
-          <v-btn text>Delete</v-btn>
+        <v-card-actions >
+            <v-btn v-if="$store.getters.isAuthenticated" text @click="onDelete(item._id)">Delete</v-btn>
 
-          <v-btn
-            color="purple"
-            text
-          >
-            Update
-          </v-btn>
+            <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate(item._id)">Update</v-btn>
 
           <v-spacer></v-spacer>
 
           <v-btn
             icon
             @click="show = !show"
-          >
+            color="blue"
+          >Details
             <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
           </v-btn>
         </v-card-actions>
@@ -57,12 +53,31 @@
     export default {
       computed : {
         items() {
+          let projects = this.$store.getters.getProjects;
+          projects.forEach(project=> {
+            project.imageUrl = 'http://localhost:9001/' + project.projectImage;
+          });
+          console.log(projects)
           return this.$store.getters.getProjects
         }
       },
+      methods : {
+        onDelete(projectId) {
+          console.log(projectId);
+          this.$store.dispatch('onDeleteProject', projectId).then(response=>{
+            console.log(JSON.stringify(response)+' : the response');
+            location.reload();
+          }).catch(err=>{
+            console.log(JSON.stringify(err));
+          });
+        },
+        onUpdate(projectId) {
 
+        }
+      },
       data: () => ({
         show: false,
+        url: 'http://localhost:9001/uploads/1581866154570-im.jpg'
       }),
     }
 </script>

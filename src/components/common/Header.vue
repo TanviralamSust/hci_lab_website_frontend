@@ -1,6 +1,6 @@
 <template>
-    <v-toolbar id="headerDiv">
-      <v-toolbar-title @click="showHome()" id="headerTitle">HCI Lab, SUST</v-toolbar-title>
+    <v-toolbar id="headerDiv" style="height: 100px">
+      <v-toolbar-title @click="showHome()" id="headerTitle" style="padding: 20px">Welcome To HCI Lab, SUST</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
 

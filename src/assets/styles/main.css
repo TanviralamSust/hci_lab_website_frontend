@@ -54,6 +54,7 @@ b.formHeader {
   font-style: oblique;
   color: aliceblue;
   margin-top: 10px;
+  margin-bottom: 5px;
   font-size: xx-large;
 }
 
@@ -106,6 +107,8 @@ div.noticeDiv {
 }
 
 #headerTitle {
+  font-weight: bold;
+  font-size: xx-large;
   font-style: italic;
 }
 
@@ -120,5 +123,5 @@ div.noticeDiv {
   margin-top: 40px;
 }
 #headerDiv {
-  height: 170px;
+  height: 300px;
 }

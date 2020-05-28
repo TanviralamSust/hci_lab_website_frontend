@@ -52,36 +52,40 @@
         },
       };
     },
-    mounted() {
-      this.fetchAchievements();
-    },
     components: {
       navbar: Header
     },
     methods: {
       submit() {
-        let bodyFormData = new FormData();
-        bodyFormData.set('title', this.achievement.title);
-        bodyFormData.set('description', this.achievement.description);
-        bodyFormData.append('achievementImage', this.achievement.projectImage);
-        console.log(JSON.stringify(this.achievement));
-
-        let config = {headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Imd6ZXJvIiwiaWF0IjoxNTgxMjY5ODc3LCJleHAiOjE1ODEzNTYyNzd9.UfBEfGrAimZRyHhRDgyZienNxojprHCrZr2YVeN6C98'
-          }
-        };
-        axios.post( 'http://localhost:9001/achievements',
-          bodyFormData,
-          config
-        )
-          .then(function (response) {
-            //handle success
-            console.log(response);
-          })
-          .catch(function (response) {
-            //handle error
-            console.log(response);
+        this.$store.dispatch('createAchievement', this.achievement).then((response)=> {
+          console.log('from create achievement comp' + response);
+          this.$router.push('/achievements');
+        })
+          .catch(error=> {
+            console.log('from create error'+ error.response);
+            if (error.response.status === 401) {
+              this.$store.dispatch('sendRefreshToken').then(response =>{
+                if (response.data.success === true) {
+                  this.$store.dispatch('setToken',response.data.token);
+                  //this.submit();
+                  this.$store.dispatch('createAchievement',this.achievement).then(response=> {
+                    console.log('With new refresh token  create achievement : ' + response);
+                    this.$router.push('/achievements');;
+                  }).catch(error=>{
+                    this.$router.push('/');
+                    console.log('req with new token and achievement not suceesful')
+                  });
+                  console.log(response.data.token+" : get success response token");
+                } else {
+                  this.$router.push('/');
+                }
+              }).catch(error=>{
+                this.$router.push('/');
+                console.log('refresh token other error' + error);
+              });
+            } else {
+              console.log('achievements other error' + error.response.data);
+            }
           });
       }
     }
