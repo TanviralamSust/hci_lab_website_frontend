@@ -14,14 +14,14 @@
           </v-list-item-content>
         </v-list-item>
         <v-img
-          :src="'http://localhost:9001/' + item.image"
+          :src="'https://sust-hci-lab-api.herokuapp.com/' + item.image"
           height="300px"
         ></v-img>
 
         <v-card-actions >
             <v-btn v-if="$store.getters.isAuthenticated" text @click="onDelete(item._id)">Delete</v-btn>
 
-            <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate(item._id)">Update</v-btn>
+            <!-- <v-btn v-show="$store.getters.isAuthenticated" color="purple" text @click="onUpdate(item._id)">Update</v-btn> -->
 
           <v-spacer></v-spacer>
 

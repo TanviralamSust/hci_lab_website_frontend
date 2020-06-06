@@ -1,10 +1,9 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const achievementModule = {
   state: {
     achievements: [],
-    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
-    localUrl:"http://localhost:9001/"
   },
   getters: {
     getAchievements(state) {
@@ -33,13 +32,13 @@ const achievementModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return  axios.post(this.basicUrl+'achievments', bodyFormData, config).then(response => {
+      return  axios.post(apiConfig.API_URL + '/achievments', bodyFormData, config).then(response => {
         context.commit('createAchievement', response.data);
         return response;
       });
     },
     fetchAchievements(context) {
-      axios.get(this.basicUrl+'achievments').then(response => {
+      axios.get(apiConfig.API_URL + '/achievments').then(response => {
         console.log(response.data);
         context.commit('fetchAchievements', response.data);
       }).catch(function (err) {
@@ -53,7 +52,7 @@ const achievementModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete(this.basicUrl+'achievments/'+payload, config)
+      return axios.delete(apiConfig.API_URL + '/achievments/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{

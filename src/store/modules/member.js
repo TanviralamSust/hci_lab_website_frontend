@@ -1,10 +1,9 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const memberModule = {
   state: {
     members: [],
-    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
-    localUrl:"http://localhost:9001/"
   },
   getters: {
     getMembers(state) {
@@ -39,13 +38,13 @@ const memberModule = {
         }
       };
 
-      return  axios.post(this.basicUrl+'members', bodyFormData, config).then(response => {
+      return  axios.post(apiConfig.API_URL + '/members', bodyFormData, config).then(response => {
         context.commit('createMember', response.data);
         return response;
       });
     },
     fetchMembers(context) {
-      axios.get(this.basicUrl+'members').then(response => {
+      axios.get(apiConfig.API_URL + '/members').then(response => {
         console.log(response.data);
         context.commit('fetchMembers', response.data);
       }).catch(function (err) {
@@ -58,7 +57,7 @@ const memberModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete(this.basicUrl+'members/'+payload, config)
+      return axios.delete(apiConfig.API_URL + '/members/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{

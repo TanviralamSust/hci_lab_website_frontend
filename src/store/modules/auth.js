@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const authModule = {
   state: {
@@ -6,8 +7,6 @@ const authModule = {
     status: "",
     hasLoadedOnce: false,
     refreshToken: localStorage.getItem("refresh-token") || "",
-    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
-    localUrl:"http://localhost:9001/"
   },
   getters: {
     isAuthenticated(state) {
@@ -36,7 +35,7 @@ const authModule = {
   actions: {
     loginUser(context, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(this.basicUrl+'login', payload)
+        axios.post(apiConfig.API_URL + '/login', payload)
           .then(resp => {
             localStorage.setItem("user-token", resp.data.token);
             localStorage.setItem("refresh-token", resp.data.refreshToken);
@@ -59,7 +58,7 @@ const authModule = {
         let body = {
           refreshToken: this.state.refreshToken,
         };
-        axios.post(this.basicUrl+'token', body).then(response =>{
+        axios.post(apiConfig.API_URL + '/token', body).then(response =>{
           console.log(response+'---------------ref token');
           resolve(response);
         }).catch(err=>{

@@ -1,10 +1,9 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const noticeModule = {
   state: {
     notices: [],
-    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
-    localUrl:"http://localhost:9001/"
   },
   getters: {
     getNotices(state) {
@@ -39,7 +38,7 @@ const noticeModule = {
         }
       };
 
-      return  axios.post('http://localhost:9001/notes',
+      return  axios.post(apiConfig.API_URL + '/notes',
         bodyFormData, config)
         .then(response => {
         context.commit('createNotice', response.data);
@@ -49,7 +48,7 @@ const noticeModule = {
     },
 
     fetchNotices(context) {
-      axios.get(this.basicUrl+'notes').then(response => {
+      axios.get(apiConfig.API_URL + '/notes').then(response => {
         console.log(JSON.stringify(response.data)+"  222222222222222");
         context.commit('fetchNotices', response.data);
       }).catch(function (err) {
@@ -62,7 +61,7 @@ const noticeModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete(this.basicUrl+'notes/'+payload, config)
+      return axios.delete(apiConfig.API_URL + '/notes/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{
