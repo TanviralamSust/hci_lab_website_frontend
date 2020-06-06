@@ -2,7 +2,7 @@ import axios from "axios";
 
 const contactModule = {
   state: {
-    basicUrl:"https://hci-lab-sust-api.herokuapp.com/",
+    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
     localUrl:"http://localhost:9001/"
   },
   getters: {

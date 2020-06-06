@@ -6,7 +6,7 @@ const authModule = {
     status: "",
     hasLoadedOnce: false,
     refreshToken: localStorage.getItem("refresh-token") || "",
-    basicUrl:"https://hci-lab-sust-api.herokuapp.com/",
+    basicUrl:"https://sust-hci-lab-api.herokuapp.com/",
     localUrl:"http://localhost:9001/"
   },
   getters: {
