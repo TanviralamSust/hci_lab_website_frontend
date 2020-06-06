@@ -31,13 +31,13 @@
             @click="onDeleteNotice(item._id)"
             text>Delete</v-btn>
 
-          <v-btn
+          <!-- <v-btn
             v-show="$store.getters.isAuthenticated"
             color="purple"
             text
           >
             Update
-          </v-btn>
+          </v-btn> -->
 
           <v-btn
             :href="'http://localhost:9001/'+item.noteFile"

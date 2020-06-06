@@ -17,9 +17,9 @@
                 <div style="margin-top: 10px">
                   <v-btn v-show="$store.getters.isAuthenticated" @click="onDeleteMember(item._id)" text>Delete</v-btn>
 
-                  <v-btn v-show="$store.getters.isAuthenticated" color="purple" text>
+                  <!-- <v-btn v-show="$store.getters.isAuthenticated" color="purple" text>
                     Update
-                  </v-btn>
+                  </v-btn> -->
                 </div>
               </v-col>
                 <div class="memberDiv" style="margin-top: 10px">
