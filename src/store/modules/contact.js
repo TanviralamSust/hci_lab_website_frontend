@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const contactModule = {
   state: {
@@ -10,7 +11,7 @@ const contactModule = {
   actions: {
     sendContact(context, payload) {
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9001/contact',payload).then(response=>{
+        axios.post(apiConfig.API_URL + '/contact',payload).then(response=>{
           console.log(response.data);
           resolve(response.data);
         }).catch(err=>{

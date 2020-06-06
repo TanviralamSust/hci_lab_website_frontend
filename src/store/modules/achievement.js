@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const achievementModule = {
   state: {
@@ -31,13 +32,13 @@ const achievementModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return  axios.post('http://localhost:9001/achievments', bodyFormData, config).then(response => {
+      return  axios.post(apiConfig.API_URL + '/achievments', bodyFormData, config).then(response => {
         context.commit('createAchievement', response.data);
         return response;
       });
     },
     fetchAchievements(context) {
-      axios.get('http://localhost:9001/achievments').then(response => {
+      axios.get(apiConfig.API_URL + '/achievments').then(response => {
         console.log(response.data);
         context.commit('fetchAchievements', response.data);
       }).catch(function (err) {
@@ -51,7 +52,7 @@ const achievementModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete('http://localhost:9001/achievments/'+payload, config)
+      return axios.delete(apiConfig.API_URL + '/achievments/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{

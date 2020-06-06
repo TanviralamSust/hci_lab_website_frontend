@@ -14,7 +14,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-img
-          :src="'http://localhost:9001/' + item.image"
+          :src="'https://sust-hci-lab-api.herokuapp.com/' + item.image"
           height="300px"
         ></v-img>
 

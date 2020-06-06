@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const memberModule = {
   state: {
@@ -37,13 +38,13 @@ const memberModule = {
         }
       };
 
-      return  axios.post('http://localhost:9001/members', bodyFormData, config).then(response => {
+      return  axios.post(apiConfig.API_URL + '/members', bodyFormData, config).then(response => {
         context.commit('createMember', response.data);
         return response;
       });
     },
     fetchMembers(context) {
-      axios.get('http://localhost:9001/members').then(response => {
+      axios.get(apiConfig.API_URL + '/members').then(response => {
         console.log(response.data);
         context.commit('fetchMembers', response.data);
       }).catch(function (err) {
@@ -56,7 +57,7 @@ const memberModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-      return axios.delete('http://localhost:9001/members/'+payload, config)
+      return axios.delete(apiConfig.API_URL + '/members/'+payload, config)
         .then(response=>{
           return response;
         }).catch(err=>{

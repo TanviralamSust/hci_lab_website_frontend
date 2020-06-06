@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiConfig from "../../config";
 
 const projectModule = {
   state: {
@@ -35,7 +36,7 @@ const projectModule = {
       };
       let self = this;
       // if(payload.count<5) {
-      return  axios.post('http://localhost:9001/projects', bodyFormData, config).then(response => {
+      return  axios.post(apiConfig.API_URL + '/projects', bodyFormData, config).then(response => {
         context.commit('createProject', response.data);
         return response;
       });
@@ -45,7 +46,7 @@ const projectModule = {
 
     },
     getProjects(context) {
-      axios.get('http://localhost:9001/projects').then(response => {
+      axios.get(apiConfig.API_URL + '/projects').then(response => {
         console.log(response.data);
         context.commit('getProjects', response.data);
       }).catch(function (err) {
@@ -59,7 +60,7 @@ const projectModule = {
           'Authorization': 'Bearer ' + localStorage.getItem("user-token"),
         }
       };
-        return axios.delete('http://localhost:9001/projects/'+paload, config)
+        return axios.delete(apiConfig.API_URL + '/projects/'+paload, config)
           .then(response=>{
             return response;
           }).catch(err=>{
